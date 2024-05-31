@@ -7,7 +7,7 @@ logoutButton.action = function() {
       if (response.success) {
          location.reload();
       } else {
-         userForm.setLoginErrorMessage('Не удалось выйти');
+         userForm.setLoginErrorMessage(response.error);
       };
    });
 };
@@ -38,9 +38,8 @@ moneyManager.addMoneyCallback = function(data) {
    ApiConnector.addMoney(data, response => {
       if (response.success) {
          ProfileWidget.showProfile(response.data);
-         moneyManager.setMessage('true', 'Успешное пополнение');
       } else {
-         moneyManager.setMessage('', 'Не удалось пополнить');
+         moneyManager.setMessage('', response.error);
       };
    });
 };
@@ -50,9 +49,8 @@ moneyManager.conversionMoneyCallback = function(data) {
    ApiConnector.convertMoney(data, response => {
       if (response.success) {
          ProfileWidget.showProfile(response.data);
-         moneyManager.setMessage('true', 'Успешная конвертация');
       } else {
-         moneyManager.setMessage('', 'Не удалось конвертировать');
+         moneyManager.setMessage('', response.error);
       };
    });
 };
@@ -62,9 +60,8 @@ moneyManager.sendMoneyCallback = function(data) {
    ApiConnector.transferMoney(data, response => {
       if (response.success) {
          ProfileWidget.showProfile(response.data);
-         moneyManager.setMessage('true', 'Перевод выполнен успешно');
       } else {
-         moneyManager.setMessage('', 'Не удалось перевести');
+         moneyManager.setMessage('', response.error);
       };
    });
 };
@@ -86,9 +83,8 @@ favoritesWidget.addUserCallback = function(data) {
          favoritesWidget.clearTable();
          favoritesWidget.fillTable(response.data);
          moneyManager.updateUsersList(response.data);
-         moneyManager.setMessage('true', 'Пользователь успешно добавлен');
       } else {
-         moneyManager.setMessage('', 'Ошибка при добавлении');
+         moneyManager.setMessage('', response.error);
       };
    });
 };
@@ -100,9 +96,8 @@ favoritesWidget.removeUserCallback = function(data) {
          favoritesWidget.clearTable();
          favoritesWidget.fillTable(response.data);
          moneyManager.updateUsersList(response.data);
-         moneyManager.setMessage('true', 'Пользователь успешно удален');
       } else {
-         moneyManager.setMessage('', 'Ошибка при удалении');
+         moneyManager.setMessage('', response.error);
       };
    });
 };
